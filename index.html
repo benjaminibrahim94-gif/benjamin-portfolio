@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio med prosjekter, ferdigheter og kontaktinformasjon.">
+  <meta name="theme-color" content="#f7f8fa">
+  <title>Benjamin Ibrahim — Portfolio</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f7f8fa;
+      --surface: #fff;
+      --text: #19212c;
+      --muted: #667180;
+      --line: #e1e6eb;
+      --accent: #176b5b;
+      --accent-soft: #e5f2ee;
+      --max-width: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible {
+      outline: 3px solid #e2a23a;
+      outline-offset: 4px;
+      border-radius: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      z-index: 2;
+      padding: .65rem 1rem;
+      background: var(--surface);
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    .container {
+      width: min(calc(100% - 3rem), var(--max-width));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: rgb(247 248 250 / 92%);
+    }
+
+    .navigation {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .brand {
+      font-weight: 750;
+      letter-spacing: -.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: .93rem;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover, .text-link:hover { color: var(--accent); }
+
+    main { overflow: hidden; }
+
+    .hero {
+      padding-block: clamp(5rem, 12vw, 9rem) clamp(4.5rem, 9vw, 7rem);
+    }
+
+    .eyebrow {
+      margin: 0 0 1.1rem;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 750;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 850px;
+      margin-bottom: 1.25rem;
+      font-size: clamp(2.8rem, 7.4vw, 5.7rem);
+      line-height: 1.02;
+      letter-spacing: -.075em;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin-bottom: 2rem;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: .65rem 1.15rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color .18s ease, transform .18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: #105448;
+    }
+
+    .section {
+      padding-block: clamp(4rem, 8vw, 6.5rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-heading h2, .about h2, .contact h2 {
+      margin-bottom: 0;
+      font-size: clamp(2rem, 4.5vw, 3.1rem);
+      line-height: 1.1;
+      letter-spacing: -.055em;
+    }
+
+    .section-note {
+      max-width: 390px;
+      margin-bottom: .15rem;
+      color: var(--muted);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.15rem;
+    }
+
+    .project-card {
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(1.4rem, 3vw, 2rem);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      transition: border-color .18s ease, transform .18s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: #b6cbc5;
+    }
+
+    .project-number {
+      margin-bottom: 1.35rem;
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+    }
+
+    .project-card h3 {
+      margin-bottom: .55rem;
+      font-size: 1.35rem;
+      letter-spacing: -.035em;
+    }
+
+    .project-card p { color: var(--muted); }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: auto;
+      padding-top: .7rem;
+    }
+
+    .tag {
+      padding: .28rem .6rem;
+      border-radius: 4px;
+      background: var(--accent-soft);
+      color: #245a4e;
+      font-size: .78rem;
+      font-weight: 650;
+    }
+
+    .text-link {
+      width: fit-content;
+      margin-top: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+      gap: clamp(2rem, 8vw, 7rem);
+    }
+
+    .about-copy { color: var(--muted); }
+
+    .about-copy p:last-child { margin-bottom: 0; }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill {
+      padding: .4rem .75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    .contact {
+      padding-block: clamp(4rem, 8vw, 6.5rem);
+      border-top: 1px solid var(--line);
+      background: #eef3f1;
+    }
+
+    .contact-layout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .contact p {
+      max-width: 480px;
+      margin: .8rem 0 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding-block: 1.5rem;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    @media (max-width: 680px) {
+      .container { width: min(calc(100% - 2rem), var(--max-width)); }
+      .navigation { min-height: 68px; gap: 1rem; }
+      .nav-links { gap: .9rem; }
+      .nav-links a { font-size: .83rem; }
+      .section-heading, .contact-layout { align-items: flex-start; flex-direction: column; }
+      .project-grid, .about-layout { grid-template-columns: 1fr; }
+      .project-card { min-height: 260px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#innhold">Hopp til innhold</a>
+  <header class="site-header">
+    <nav class="navigation container" aria-label="Hovedmeny">
+      <a class="brand" href="#" aria-label="Benjamin Ibrahim – forsiden">BI.</a>
+      <ul class="nav-links">
+        <li><a href="#prosjekter">Prosjekter</a></li>
+        <li><a href="#om-meg">Om meg</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="innhold">
+    <section class="hero container" aria-labelledby="intro-title">
+      <p class="eyebrow">Portfolio · 2026</p>
+      <h1 id="intro-title">Hei, jeg er Benjamin Ibrahim.</h1>
+      <p class="hero-copy">Nylig utdannet innenfor it og informasjonsystemer ute etter jobb.</p>
+      <a class="button" href="#prosjekter">Se prosjektene mine <span aria-hidden="true">&nbsp;↓</span></a>
+    </section>
+
+    <section class="section" id="prosjekter" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="projects-title">Utvalgte prosjekter</h2>
+    
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="project-number">PROSJEKT 01</span>
+            <h3>[Vareplassering]</h3>
+            <p>Målet med prosjektet er å utvikle en app som gjør arbeidshverdagen enklere og mer oversiktlig for ansatte i dagligvarebutikker. Appen skal spesielt hjelpe de som har ansvar for bestilling og vareplassering, med å planlegge forhåndsbestillinger og hvor varer skal stå flere uker i forveien. Dette skal bidra til bedre struktur, færre misforståelser og mindre kaos når varene kommer.
+
+Samtidig skal appen fungere som et lett tilgjengelig oppslagsverk for alle medarbeidere. Hvis noen for eksempel er syke, eller en annen ansatt må overta oppgavene deres, skal det være enkelt å finne ut hvor varer skal plasseres uten å måtte spørre kolleger om hver enkelt vare. Målet er å samle viktig informasjon på ett sted, spare tid og gjøre butikken mindre avhengig av at bestemte ansatte er til stede.</p>
+            <div class="tags" aria-label="Teknologier">
+              <span class="tag">[Html]</span>
+              <span class="tag">[Android app]</span>
+            </div>
+            <a class="text-link" href="https://github.com/" target="_blank" rel="noreferrer">Se kode på GitHub <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROSJEKT 02</span>
+            <h3>[Uyghur]</h3>
+            <p>Prosjektet Uyghur er en informativ nettside angeående mitt folkeslag, dedikert til å samle og formidle kunnskap om det uiguriske folket. Målet med nettstedet er å være en omfattende og pålitelig kilde til informasjon om uigurenes historie, språk, kultur, tradisjoner, musikk, religion og samfunnsliv.</p>
+            <div class="tags" aria-label="Teknologier">
+              <span class="tag">[html]</span>
+              <span class="tag"></span>
+            </div>
+            <a class="text-link" href="https://github.com/" target="_blank" rel="noreferrer">Se kode på GitHub <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROSJEKT 03</span>
+            <h3>Aesir</h3>
+            <p>Aesir er en nettside utviklet og drevet av meg og flere andre medlemmer av en klan i spillet World of Warcraft</p>
+            <div class="tags" aria-label="Teknologier">
+              <span class="tag">Claude Code</span>
+              <span class="tag">[Fullstack]</span>
+            </div>
+            <a class="text-link" href="https://github.com/" target="_blank" rel="noreferrer">Se kode på GitHub <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROSJEKT 04</span>
+            <h3>Business Intelligence-dashboard</h3>
+            <p>[Du kan også vise skolearbeid, frivillig arbeid eller et lite prosjekt du er stolt av.]</p>
+            <div class="tags" aria-label="Teknologier">
+              <span class="tag">[PowerBI]</span>
+              <span class="tag">[Salg]</span>
+            </div>
+            <a class="text-link" href="https://github.com/" target="_blank" rel="noreferrer">Se kode på GitHub <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="om-meg" aria-labelledby="about-title">
+      <div class="container about-layout">
+        <h2 id="about-title">Litt om meg</h2>
+        <div class="about-copy">
+          <p>Jeg har en bachelorgrad i IT og informasjonssystemer og er en person som liker å utforske nye muligheter innen teknologi og digitalisering. Jeg er nysgjerrig, løsningsorientert og liker å finne praktiske måter å gjøre ting enklere og mer effektive på. På fritiden jobber jeg blant annet med egne digitale prosjekter, hvor jeg får utforske nye verktøy, lære underveis og omsette ideer til løsninger. Her er noen prosjektene mine.</p>
+          <p></p>
+          <div class="skills" aria-label="Ferdigheter">
+            <span class="skill">[vibecoding]</span>
+            <span class="skill">[Html]</span>
+            <span class="skill">[Erfaring fra salg]</span>
+            <span class="skill">[AI]</span>
+            <span class="skill">[PowerBI]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="kontakt" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div>
+          <h2 id="contact-title">Skal vi ta en prat?</h2>
+          <p>Jeg er åpen for nye muligheter. Send meg gjerne en e-post.</p>
+        </div>
+        <div>
+          <a class="button" href="mailto:epost@eksempel.no">Benjamin-ibrahim@outlook.com</a>
+          <p><a class="text-link" href="https://www.linkedin.com/" target="_blank" rel="noreferrer"></span></a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>© 2026 Benjamin Ibrahim.</p>
+  </footer>
+</body>
+</html>
