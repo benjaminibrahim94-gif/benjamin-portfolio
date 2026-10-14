@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vareplanlegger</title>
+  <meta name="theme-color" content="#222930">
+  <meta name="description" content="Planlegg varer og plasseringer i butikken uke for uke.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/app-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/app-192.png">
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #1d2939;
+      background: #f4f6f8;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    body { margin: 0; min-width: 320px; }
+
+    button, input, select { font: inherit; }
+
+    .app { max-width: 1440px; margin: 0 auto; padding: 28px 32px 48px; }
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    h1 { margin: 0 0 6px; font-size: clamp(25px, 3vw, 34px); letter-spacing: -1px; }
+    .subtitle { color: #667085; margin: 0; }
+
+    .week-controls {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid #e4e7ec;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 2px 8px #1018280a;
+    }
+
+    button {
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      padding: 9px 12px;
+      background: white;
+      color: #344054;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover { background: #f9fafb; }
+    button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid #84caff;
+      outline-offset: 2px;
+    }
+
+    button.primary { background: #175cd3; border-color: #175cd3; color: white; }
+    button.primary:hover { background: #1849a9; }
+    button.icon { width: 38px; height: 38px; padding: 0; font-size: 20px; }
+    .week-picker { border: 0; font-weight: 700; color: #101828; padding: 8px; }
+    .week-label { min-width: 104px; text-align: center; font-size: 13px; color: #667085; }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 16px 0 12px;
+    }
+
+    .toolbar p { margin: 0; font-size: 14px; color: #667085; }
+    .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .placement-hint { display: none; margin: 0 0 10px; padding: 10px 12px; border-radius: 9px; background: #eff8ff; color: #175cd3; font-size: 13px; }
+    .placement-hint.active { display: block; }
+
+    .map-shell {
+      overflow: auto;
+      border: 1px solid #e4e7ec;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 5px 18px #1018280a;
+    }
+
+    .map-canvas {
+      position: relative;
+      width: 100%;
+      min-width: 0;
+      aspect-ratio: 1152 / 768;
+      background: #fff;
+    }
+
+    .store-map-image, .planogram {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .store-map-image { object-fit: fill; }
+    .planogram { overflow: visible; }
+    .plan-slot { cursor: pointer; }
+    .plan-slot circle { stroke: #fff; stroke-width: 2; opacity: .94; filter: drop-shadow(0 1px 2px #10182880); transition: r .12s, stroke-width .12s; }
+    .plan-slot text { fill: #fff; font-size: 9px; font-weight: 750; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+    .plan-slot:hover circle, .plan-slot:focus circle { r: 13.2px; stroke: #101828; stroke-width: 3; }
+    .plan-slot.is-highlighted circle { r: 15px; stroke: #101828; stroke-width: 3; opacity: 1; }
+    .plan-slot:focus { outline: none; }
+    .map-caption { margin: 10px 4px 0; color: #667085; font-size: 12px; }
+
+    .location-key { margin-top: 22px; }
+    .location-key h2 { margin: 0 0 12px; font-size: 18px; }
+    .key-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .key-group { padding: 14px; border: 1px solid #e4e7ec; border-radius: 12px; background: #fff; }
+    .key-group h3 { margin: 0 0 10px; color: #475467; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+    .key-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+    .key-item { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 8px; text-align: left; font-size: 12px; }
+    .key-item.is-highlighted { background: #eff8ff; border-color: #84caff; box-shadow: 0 0 0 2px #84caff40; }
+    .key-number { display: grid; flex: 0 0 25px; width: 25px; height: 25px; place-items: center; border-radius: 50%; color: white; font-size: 11px; }
+    .key-copy { display: flex; min-width: 0; flex-direction: column; gap: 3px; }
+    .key-name { font-weight: 700; color: #344054; }
+    .key-product { overflow-wrap: anywhere; color: #175cd3; }
+    .key-product.empty { color: #98a2b3; font-weight: 400; }
+
+    .legend { display: flex; gap: 18px; flex-wrap: wrap; padding: 14px 4px 0; color: #667085; font-size: 12px; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #e9a8de; }
+    .dot.fresh { background: #84caff; }
+    .dot.aisle { background: #98a2b3; }
+    .dot.meal { background: #fdb022; }
+    .saved { color: #039855; font-size: 12px; font-weight: 600; }
+
+    dialog {
+      width: min(440px, calc(100% - 28px));
+      padding: 0;
+      border: 0;
+      border-radius: 16px;
+      box-shadow: 0 20px 55px #10182840;
+    }
+
+    dialog::backdrop { background: #10182880; }
+    .dialog-content { padding: 22px; }
+    .dialog-content h2 { margin: 0 0 5px; font-size: 21px; }
+    .dialog-content p { margin: 0 0 18px; color: #667085; font-size: 14px; }
+    .dialog-content label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 700; }
+    .dialog-content input { width: 100%; padding: 12px; border: 1px solid #d0d5dd; border-radius: 9px; }
+    .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+
+    @media (max-width: 720px) {
+      .app { padding: 20px 14px 32px; }
+      header { flex-direction: column; }
+      .week-controls { width: 100%; justify-content: space-between; }
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .toolbar-actions { width: 100%; }
+      .key-groups { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (max-width: 380px) {
+      .key-items { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media print {
+      body { background: white; }
+      .app { max-width: none; padding: 0; }
+      header { margin-bottom: 12px; }
+      .week-controls button, .toolbar-actions { display: none; }
+      .map-shell { overflow: visible; box-shadow: none; }
+      .map-canvas { min-width: 0; }
+      .key-item { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div>
+        <h1>Vareplanlegger</h1>
+        <p class="subtitle">Planlegg hvilke varer som skal stå på hver plass – uke for uke.</p>
+      </div>
+      <div class="week-controls" aria-label="Velg planleggingsuke">
+        <button class="icon" id="previous-week" aria-label="Forrige uke">‹</button>
+        <input class="week-picker" id="week-picker" type="date" aria-label="Velg mandag i planleggingsuken">
+        <span class="week-label" id="week-label"></span>
+        <button class="icon" id="next-week" aria-label="Neste uke">›</button>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <p>Klikk på en plass i planen for å skrive inn eller endre varen. Endringene lagres automatisk på denne enheten.</p>
+      <div class="toolbar-actions">
+        <button id="copy-previous">Kopier forrige uke</button>
+        <button id="placement-mode" aria-pressed="false">Rediger plasseringer</button>
+        <button id="manage-categories">Administrer kategorier</button>
+        <button id="install-app" hidden>Installer app</button>
+        <button class="primary" id="print-plan">Skriv ut ukeplan</button>
+      </div>
+    </div>
+
+    <p class="placement-hint" id="placement-hint" role="status">Klikk på tegningen for å legge til en plass. Klikk på en eksisterende markør eller et navn nedenfor for å endre den.</p>
+    <section class="map-shell" aria-label="Redigerbart planogram for butikken">
+      <div class="map-canvas" id="map-canvas">
+        <img class="store-map-image" src="butikkplan-ny.png" alt="Hele butikktegningen sett ovenfra">
+        <svg class="planogram" id="planogram" viewBox="0 0 1152 768" role="group" aria-label="Hele butikktegningen med nummererte, redigerbare vareplasser"></svg>
+      </div>
+    </section>
+    <p class="map-caption">Numrene på tegningen viser til plasseringene i listen under. Klikk på et nummer eller et navn for å endre varen.</p>
+
+    <section class="location-key" aria-label="Plasseringer på butikktegningen">
+      <h2>Plasseringer på butikktegningen</h2>
+      <div class="key-groups" id="location-key"></div>
+    </section>
+
+    <div class="legend" aria-label="Lagringsstatus">
+      <span class="saved" id="saved-status" role="status">Lagret</span>
+    </div>
+  </main>
+
+  <dialog id="edit-dialog">
+    <form class="dialog-content" id="edit-form" method="dialog">
+      <h2 id="dialog-title">Endre vare</h2>
+      <p id="dialog-subtitle"></p>
+      <label for="product-input">Vare / innhold</label>
+      <input id="product-input" type="text" maxlength="80" placeholder="Skriv inn varen som skal stå her">
+      <div class="dialog-actions">
+        <button type="button" id="clear-product">Tøm plassen</button>
+        <button type="button" id="cancel-edit">Avbryt</button>
+        <button type="submit" class="primary">Lagre</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="location-dialog">
+    <form class="dialog-content" id="location-form" method="dialog">
+      <h2 id="location-dialog-title">Ny plassering</h2>
+      <p id="location-dialog-subtitle">Gi plassen et tydelig navn og en kategori.</p>
+      <label for="location-name-input">Navn på plassen</label>
+      <input id="location-name-input" type="text" maxlength="80" required placeholder="For eksempel: Pall ved frukt">
+      <label for="location-category-input">Kategori</label>
+      <input id="location-category-input" type="text" maxlength="50" required list="location-categories" placeholder="For eksempel: Kampanje">
+      <datalist id="location-categories"></datalist>
+      <select id="location-category-select" hidden aria-label="Velg kategori"></select>
+      <div class="dialog-actions">
+        <button type="button" id="move-location" hidden>Flytt plass</button>
+        <button type="button" id="delete-location" hidden>Slett plass</button>
+        <button type="button" id="cancel-location">Avbryt</button>
+        <button type="submit" class="primary">Lagre plass</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="category-dialog">
+    <form class="dialog-content" id="category-form" method="dialog">
+      <h2>Kategorier</h2>
+      <p>Opprett, gi nytt navn til eller slett kategorier for plasseringene.</p>
+      <label for="category-select">Kategori</label>
+      <select id="category-select" required></select>
+      <label for="category-name">Kategorinavn</label>
+      <input id="category-name" type="text" maxlength="50" placeholder="Skriv inn et kategorinavn">
+      <label for="category-move-to">Flytt plasseringer til ved sletting</label>
+      <select id="category-move-to"></select>
+      <div class="dialog-actions">
+        <button type="button" id="add-category">Legg til</button>
+        <button type="button" id="rename-category">Endre navn</button>
+        <button type="button" id="delete-category">Slett kategori</button>
+        <button type="button" id="close-category-dialog">Lukk</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    const defaultLocations = [
+      { id: "sm-pall-1", category: "Smågodt / bakvegg", name: "SM-1 · ½ pall", x: 296, y: 116, color: "#b547a0" },
+      { id: "sm-pall-2", category: "Smågodt / bakvegg", name: "SM-2 · ½ pall", x: 320, y: 116, color: "#b547a0" },
+      { id: "sm-pall-3", category: "Smågodt / bakvegg", name: "SM-3 · ½ pall", x: 369, y: 116, color: "#b547a0" },
+      { id: "sm-pall-4", category: "Smågodt / bakvegg", name: "SM-4 · ½ pall", x: 394, y: 116, color: "#b547a0" },
+      { id: "reol1-ovre", category: "Midtganger / reoler", name: "G1-A · Reol 1, øvre", x: 235, y: 504, color: "#475467" },
+      { id: "reol1-nedre", category: "Midtganger / reoler", name: "G1-B · Reol 1, nedre", x: 624, y: 614, color: "#475467" },
+      { id: "reol2-nedre", category: "Midtganger / reoler", name: "G2-B · Reol 2, nedre", x: 309, y: 480, color: "#475467" },
+      { id: "reol3-nedre", category: "Midtganger / reoler", name: "G3-B · Reol 3, nedre", x: 382, y: 480, color: "#475467" },
+      { id: "reol4-ovre", category: "Midtganger / reoler", name: "G4-A · Reol 4, øvre", x: 480, y: 420, color: "#475467" },
+      { id: "reol4-nedre", category: "Midtganger / reoler", name: "G4-B · Reol 4, nedre", x: 553, y: 420, color: "#475467" },
+      { id: "kampanje-ferdigretter", category: "Ferskvaredisker / kampanje", name: "MK-3 · Ferdigretter", x: 858, y: 408, color: "#dc6803" },
+      { id: "kampanje-pizza", category: "Ferskvaredisker / kampanje", name: "MK-4 · Pizza", x: 858, y: 508, color: "#dc6803" }
+    ];
+
+    const locationsStorageKey = "vareplanlegger:locations";
+    const categoriesStorageKey = "vareplanlegger:categories";
+    const picker = document.querySelector("#week-picker");
+    const weekLabel = document.querySelector("#week-label");
+    const dialog = document.querySelector("#edit-dialog");
+    const locationDialog = document.querySelector("#location-dialog");
+    const productInput = document.querySelector("#product-input");
+    const savedStatus = document.querySelector("#saved-status");
+    const planogram = document.querySelector("#planogram");
+    const locationKey = document.querySelector("#location-key");
+    const mapCanvas = document.querySelector("#map-canvas");
+    const locationNameInput = document.querySelector("#location-name-input");
+    const locationCategoryInput = document.querySelector("#location-category-input");
+    const locationCategorySelect = document.querySelector("#location-category-select");
+    const categoryDialog = document.querySelector("#category-dialog");
+    const categorySelect = document.querySelector("#category-select");
+    const categoryNameInput = document.querySelector("#category-name");
+    const categoryMoveTo = document.querySelector("#category-move-to");
+    const svgNamespace = "http://www.w3.org/2000/svg";
+    const categoryColors = ["#175cd3", "#039855", "#dc6803", "#7a5af8", "#c11574", "#0e7090", "#b54708", "#475467"];
+    let locations = loadLocations();
+    let categories = loadCategories();
+    let activeLocation = null;
+    let editingLocationId = null;
+    let movingLocationId = null;
+    let pendingPosition = null;
+    let placementMode = false;
+    let currentPlan = {};
+
+    function loadLocations() {
+      try {
+        const saved = localStorage.getItem(locationsStorageKey);
+        if (!saved) return defaultLocations.map(location => ({ ...location }));
+        const parsed = JSON.parse(saved);
+        if (!Array.isArray(parsed) || parsed.some(location =>
+          !location || typeof location.id !== "string" ||
+          typeof location.name !== "string" || typeof location.category !== "string" ||
+          !Number.isFinite(location.x) || !Number.isFinite(location.y)
+        )) {
+          throw new Error("Ugyldig format på lagrede plasseringer.");
+        }
+        return parsed;
+      } catch (error) {
+        console.error("Kunne ikke lese lagrede plasseringer.", error);
+        return defaultLocations.map(location => ({ ...location }));
+      }
+    }
+
+    function loadCategories() {
+      try {
+        const saved = localStorage.getItem(categoriesStorageKey);
+        const storedCategories = saved === null
+          ? defaultLocations.map(location => location.category)
+          : JSON.parse(saved);
+        if (!Array.isArray(storedCategories) || storedCategories.some(category =>
+          typeof category !== "string" || !category.trim()
+        )) {
+          throw new Error("Ugyldig format på lagrede kategorier.");
+        }
+        return [...new Set([
+          ...storedCategories,
+          ...locations.map(location => location.category)
+        ])];
+      } catch (error) {
+        console.error("Kunne ikke lese lagrede kategorier.", error);
+        return [...new Set([
+          ...defaultLocations.map(location => location.category),
+          ...locations.map(location => location.category)
+        ])];
+      }
+    }
+
+    function saveLocations() {
+      try {
+        localStorage.setItem(locationsStorageKey, JSON.stringify(locations));
+        return true;
+      } catch (error) {
+        console.error("Kunne ikke lagre plasseringene.", error);
+        savedStatus.textContent = "Kunne ikke lagre plasseringene";
+        savedStatus.style.color = "#d92d20";
+        return false;
+      }
+    }
+
+    function saveConfiguration(nextCategories, nextLocations) {
+      let previousCategories;
+      let previousLocations;
+      try {
+        previousCategories = localStorage.getItem(categoriesStorageKey);
+        previousLocations = localStorage.getItem(locationsStorageKey);
+        localStorage.setItem(categoriesStorageKey, JSON.stringify(nextCategories));
+        localStorage.setItem(locationsStorageKey, JSON.stringify(nextLocations));
+        savedStatus.textContent = "Lagret";
+        savedStatus.style.color = "#039855";
+        return true;
+      } catch (error) {
+        console.error("Kunne ikke lagre kategoriene og plasseringene.", error);
+        if (previousCategories !== undefined && previousLocations !== undefined) {
+          try {
+            if (previousCategories === null) localStorage.removeItem(categoriesStorageKey);
+            else localStorage.setItem(categoriesStorageKey, previousCategories);
+            if (previousLocations === null) localStorage.removeItem(locationsStorageKey);
+            else localStorage.setItem(locationsStorageKey, previousLocations);
+          } catch (rollbackError) {
+            console.error("Kunne ikke gjenopprette kategoriene og plasseringene etter lagringsfeilen.", rollbackError);
+          }
+        }
+        savedStatus.textContent = "Kunne ikke lagre";
+        savedStatus.style.color = "#d92d20";
+        return false;
+      }
+    }
+
+    function mondayOf(date) {
+      const result = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      const day = (result.getDay() + 6) % 7;
+      result.setDate(result.getDate() - day);
+      return result;
+    }
+
+    function dateKey(date) {
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    }
+
+    function fromDateKey(value) {
+      const [year, month, day] = value.split("-").map(Number);
+      return mondayOf(new Date(year, month - 1, day));
+    }
+
+    function isoWeek(date) {
+      const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      target.setUTCDate(target.getUTCDate() + 4 - (target.getUTCDay() || 7));
+      const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+      return Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
+    }
+
+    function weekStorageKey(key) {
+      return `vareplanlegger:${key}`;
+    }
+
+    function parsePlan(rawPlan) {
+      const stored = JSON.parse(rawPlan || "{}");
+      if (stored.version === 2 && stored.items && typeof stored.items === "object") {
+        const validIds = new Set(locations.map(location => location.id));
+        return Object.fromEntries(Object.entries(stored.items).filter(([id]) => validIds.has(id)));
+      }
+
+      const oldIndexToId = {
+        13: "reol1-ovre",
+        14: "reol1-nedre",
+        16: "reol2-nedre",
+        18: "reol3-nedre",
+        19: "reol4-ovre",
+        20: "reol4-nedre",
+        23: "kampanje-ferdigretter",
+        24: "kampanje-pizza"
+      };
+      const migrated = {};
+      Object.entries(oldIndexToId).forEach(([oldIndex, id]) => {
+        if (typeof stored[oldIndex] === "string") migrated[id] = stored[oldIndex];
+      });
+      return migrated;
+    }
+
+    function svgElement(tag, attributes = {}) {
+      const element = document.createElementNS(svgNamespace, tag);
+      Object.entries(attributes).forEach(([name, value]) => element.setAttribute(name, value));
+      return element;
+    }
+
+    function colorForCategory(category) {
+      const normalizedCategory = category.toLocaleLowerCase("no-NO");
+      if (normalizedCategory.includes("midtganger") || normalizedCategory.includes("reoler")) return "#b88200";
+      if (normalizedCategory.includes("ferskvare") || normalizedCategory.includes("kampanje")) return "#1570ef";
+      const knownCategory = locations.find(location => location.category === category);
+      if (knownCategory) return knownCategory.color;
+      let hash = 0;
+      for (const character of category) hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+      return categoryColors[hash % categoryColors.length];
+    }
+
+    function highlightLocation(id, active) {
+      [planogram, locationKey].forEach(container => {
+        [...container.querySelectorAll("[data-location-id]")].forEach(element => {
+          if (element.dataset.locationId === id) {
+            element.classList.toggle("is-highlighted", active);
+          }
+        });
+      });
+    }
+
+    function setPlacementMode(active) {
+      placementMode = active;
+      const button = document.querySelector("#placement-mode");
+      button.setAttribute("aria-pressed", String(active));
+      button.textContent = active ? "Avslutt plassering" : "Rediger plasseringer";
+      const hint = document.querySelector("#placement-hint");
+      hint.textContent = movingLocationId
+        ? "Klikk på den nye plasseringen på tegningen for å flytte markøren."
+        : "Klikk på tegningen for å legge til en plass. Klikk på en eksisterende markør eller et navn nedenfor for å endre den.";
+      hint.classList.toggle("active", active);
+      mapCanvas.style.cursor = active ? "crosshair" : "";
+    }
+
+    function refreshCategoryManager(selectedCategory = categories[0]) {
+      categorySelect.replaceChildren(...categories.map(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        return option;
+      }));
+      categorySelect.value = selectedCategory;
+      categoryNameInput.value = selectedCategory || "";
+      categoryMoveTo.replaceChildren(...categories
+        .filter(category => category !== selectedCategory)
+        .map(category => {
+          const option = document.createElement("option");
+          option.value = category;
+          option.textContent = category;
+          return option;
+        }));
+      document.querySelector("#delete-category").disabled = categories.length <= 1;
+      categoryMoveTo.disabled = categories.length <= 1;
+    }
+
+    function openCategoryManager() {
+      refreshCategoryManager();
+      categoryDialog.showModal();
+    }
+
+    function openLocationDialog({ location = null, position = null } = {}) {
+      editingLocationId = location?.id || null;
+      pendingPosition = position;
+      document.querySelector("#location-dialog-title").textContent = location ? "Endre plassering" : "Ny plassering";
+      document.querySelector("#location-dialog-subtitle").textContent = location
+        ? "Endre navn eller kategori, eller flytt markøren til en ny plass på tegningen."
+        : "Plassen blir lagt til der du klikket på butikktegningen.";
+      locationNameInput.value = location?.name || "";
+      locationCategoryInput.value = location?.category || "";
+      locationCategoryInput.hidden = Boolean(location);
+      locationCategoryInput.required = !location;
+      locationCategorySelect.hidden = !location;
+      locationCategorySelect.required = Boolean(location);
+      document.querySelector("#delete-location").hidden = !location;
+      document.querySelector("#move-location").hidden = !location;
+
+      locationCategorySelect.replaceChildren(
+        ...categories.map(category => {
+          const option = document.createElement("option");
+          option.value = category;
+          option.textContent = category;
+          return option;
+        })
+      );
+      locationCategorySelect.value = location?.category || categories[0] || "";
+      const categoryList = document.querySelector("#location-categories");
+      categoryList.replaceChildren(
+        ...categories.map(category => {
+          const option = document.createElement("option");
+          option.value = category;
+          return option;
+        })
+      );
+      locationDialog.showModal();
+      locationNameInput.focus();
+    }
+
+    function removeLocation(id) {
+      if (!window.confirm("Slette denne plassen og varen som er planlagt der for alle uker?")) return;
+
+      const planUpdates = [];
+      try {
+        for (let index = 0; index < localStorage.length; index += 1) {
+          const key = localStorage.key(index);
+          if (!key || !key.startsWith("vareplanlegger:") || key === locationsStorageKey) continue;
+          const raw = localStorage.getItem(key);
+          const plan = parsePlan(raw);
+          if (Object.prototype.hasOwnProperty.call(plan, id)) {
+            const updatedPlan = { ...plan };
+            delete updatedPlan[id];
+            planUpdates.push({ key, previous: raw, next: JSON.stringify({ version: 2, items: updatedPlan }) });
+          }
+        }
+      } catch (error) {
+        console.error("Kunne ikke klargjøre sletting av plassens ukeplaner.", error);
+        window.alert("Plassen ble ikke slettet fordi en lagret ukeplan ikke kunne leses.");
+        return;
+      }
+
+      const previousLocations = locations;
+      locations = locations.filter(location => location.id !== id);
+      try {
+        planUpdates.forEach(update => localStorage.setItem(update.key, update.next));
+        if (!saveLocations()) throw new Error("Kunne ikke lagre endringene i plasseringene.");
+      } catch (error) {
+        console.error("Kunne ikke slette plasseringen fra lagringen.", error);
+        locations = previousLocations;
+        planUpdates.forEach(update => {
+          try {
+            localStorage.setItem(update.key, update.previous);
+          } catch (rollbackError) {
+            console.error(`Kunne ikke gjenopprette ukeplanen ${update.key}.`, rollbackError);
+          }
+        });
+        window.alert("Plassen ble ikke slettet fordi endringene ikke kunne lagres.");
+        return;
+      }
+
+      delete currentPlan[id];
+      renderSlots();
+      locationDialog.close();
+    }
+
+    function renderWeek() {
+      const monday = fromDateKey(picker.value);
+      const key = dateKey(monday);
+      picker.value = key;
+      const sunday = new Date(monday);
+      sunday.setDate(sunday.getDate() + 6);
+      weekLabel.textContent = `Uke ${isoWeek(monday)} · ${monday.toLocaleDateString("no-NO", { day: "numeric", month: "short" })}–${sunday.toLocaleDateString("no-NO", { day: "numeric", month: "short" })}`;
+
+      try {
+        currentPlan = parsePlan(localStorage.getItem(weekStorageKey(key)));
+      } catch (error) {
+        console.error("Kunne ikke lese den lagrede ukeplanen.", error);
+        currentPlan = {};
+      }
+      renderSlots();
+    }
+
+    function renderSlots() {
+      planogram.replaceChildren();
+      locationKey.replaceChildren();
+
+      const groups = new Map();
+      [...new Set([...categories, ...locations.map(location => location.category)])].forEach(category => {
+        const section = document.createElement("section");
+        section.className = "key-group";
+        const heading = document.createElement("h3");
+        heading.textContent = category;
+        const items = document.createElement("div");
+        items.className = "key-items";
+        section.append(heading, items);
+        locationKey.append(section);
+        groups.set(category, items);
+      });
+
+      locations.forEach((location, index) => {
+        const itemNumber = index + 1;
+        const product = currentPlan[location.id] || "";
+        const label = `${location.name}: ${product || "ingen vare satt"}. Klikk for å endre.`;
+        const marker = svgElement("g", {
+          class: "plan-slot",
+          role: "button",
+          tabindex: 0,
+          "data-location-id": location.id,
+          "aria-label": label
+        });
+        marker.append(svgElement("title"));
+        marker.lastChild.textContent = label;
+        marker.append(svgElement("circle", {
+          cx: location.x,
+          cy: location.y,
+          r: 10.2,
+          fill: colorForCategory(location.category)
+        }));
+        const markerNumber = svgElement("text", { x: location.x, y: location.y });
+        markerNumber.textContent = itemNumber;
+        marker.append(markerNumber);
+        marker.addEventListener("click", () => {
+          if (placementMode) openLocationDialog({ location });
+          else openEditor(index);
+        });
+        marker.addEventListener("pointerenter", () => highlightLocation(location.id, true));
+        marker.addEventListener("pointerleave", () => highlightLocation(location.id, false));
+        marker.addEventListener("focus", () => highlightLocation(location.id, true));
+        marker.addEventListener("blur", () => highlightLocation(location.id, false));
+        marker.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openEditor(index);
+          }
+        });
+        planogram.append(marker);
+
+        const keyButton = document.createElement("button");
+        keyButton.className = "key-item";
+        keyButton.type = "button";
+        keyButton.dataset.locationId = location.id;
+        keyButton.setAttribute("aria-label", label);
+        const number = document.createElement("span");
+        number.className = "key-number";
+        number.style.backgroundColor = colorForCategory(location.category);
+        number.textContent = itemNumber;
+        const copy = document.createElement("span");
+        copy.className = "key-copy";
+        const name = document.createElement("span");
+        name.className = "key-name";
+        name.textContent = location.name;
+        const productName = document.createElement("span");
+        productName.className = `key-product${product ? "" : " empty"}`;
+        productName.textContent = product || "Ingen vare planlagt";
+        copy.append(name, productName);
+        keyButton.append(number, copy);
+        keyButton.addEventListener("pointerenter", () => highlightLocation(location.id, true));
+        keyButton.addEventListener("pointerleave", () => highlightLocation(location.id, false));
+        keyButton.addEventListener("focus", () => highlightLocation(location.id, true));
+        keyButton.addEventListener("blur", () => highlightLocation(location.id, false));
+        keyButton.addEventListener("click", event => {
+          if (placementMode) {
+            openLocationDialog({ location });
+          } else {
+            openEditor(index);
+          }
+        });
+        groups.get(location.category).append(keyButton);
+      });
+    }
+
+    function openEditor(index) {
+      activeLocation = locations[index].id;
+      const location = locations[index];
+      document.querySelector("#dialog-title").textContent = location.name;
+      document.querySelector("#dialog-subtitle").textContent = `Uke ${isoWeek(fromDateKey(picker.value))} · skriv inn varen for denne plassen.`;
+      productInput.value = currentPlan[location.id] || "";
+      dialog.showModal();
+      productInput.focus();
+    }
+
+    function savePlan() {
+      const key = dateKey(fromDateKey(picker.value));
+      try {
+        localStorage.setItem(weekStorageKey(key), JSON.stringify({ version: 2, items: currentPlan }));
+        savedStatus.textContent = "Lagret";
+        savedStatus.style.color = "#039855";
+      } catch (error) {
+        savedStatus.textContent = "Kunne ikke lagre";
+        savedStatus.style.color = "#d92d20";
+        console.error("Kunne ikke lagre ukeplanen.", error);
+      }
+    }
+
+    function updateProduct(value) {
+      if (value.trim()) currentPlan[activeLocation] = value.trim();
+      else delete currentPlan[activeLocation];
+      renderSlots();
+      savePlan();
+      dialog.close();
+    }
+
+    function changeWeek(amount) {
+      const date = fromDateKey(picker.value);
+      date.setDate(date.getDate() + amount * 7);
+      picker.value = dateKey(date);
+      renderWeek();
+    }
+
+    document.querySelector("#previous-week").addEventListener("click", () => changeWeek(-1));
+    document.querySelector("#next-week").addEventListener("click", () => changeWeek(1));
+    picker.addEventListener("change", renderWeek);
+    document.querySelector("#print-plan").addEventListener("click", () => {
+      if (window.AndroidPrint && typeof window.AndroidPrint.print === "function") {
+        window.AndroidPrint.print();
+      } else {
+        window.print();
+      }
+    });
+    document.querySelector("#manage-categories").addEventListener("click", openCategoryManager);
+    categorySelect.addEventListener("change", () => refreshCategoryManager(categorySelect.value));
+    document.querySelector("#add-category").addEventListener("click", () => {
+      const name = categoryNameInput.value.trim();
+      if (!name) {
+        window.alert("Skriv inn et navn på den nye kategorien.");
+        return;
+      }
+      if (categories.some(category => category.toLocaleLowerCase() === name.toLocaleLowerCase())) {
+        window.alert("Denne kategorien finnes allerede.");
+        return;
+      }
+      const nextCategories = [...categories, name];
+      if (!saveConfiguration(nextCategories, locations)) return;
+      categories = nextCategories;
+      refreshCategoryManager(name);
+      renderSlots();
+    });
+    document.querySelector("#rename-category").addEventListener("click", () => {
+      const previousName = categorySelect.value;
+      const name = categoryNameInput.value.trim();
+      if (!previousName || !name) {
+        window.alert("Velg en kategori og skriv inn det nye navnet.");
+        return;
+      }
+      if (name === previousName) return;
+      if (categories.some(category => category.toLocaleLowerCase() === name.toLocaleLowerCase())) {
+        window.alert("Denne kategorien finnes allerede.");
+        return;
+      }
+      const nextCategories = categories.map(category => category === previousName ? name : category);
+      const nextLocations = locations.map(location => location.category === previousName
+        ? { ...location, category: name }
+        : location);
+      if (!saveConfiguration(nextCategories, nextLocations)) return;
+      categories = nextCategories;
+      locations = nextLocations;
+      refreshCategoryManager(name);
+      renderSlots();
+    });
+    document.querySelector("#delete-category").addEventListener("click", () => {
+      const category = categorySelect.value;
+      const destination = categoryMoveTo.value;
+      if (!category || categories.length <= 1) {
+        window.alert("Den siste kategorien kan ikke slettes.");
+        return;
+      }
+      if (!destination || destination === category) {
+        window.alert("Velg en annen kategori som plasseringene skal flyttes til.");
+        return;
+      }
+      const affectedCount = locations.filter(location => location.category === category).length;
+      const description = affectedCount
+        ? `Slette «${category}» og flytte ${affectedCount} plassering(er) til «${destination}»?`
+        : `Slette kategorien «${category}»?`;
+      if (!window.confirm(description)) return;
+
+      const nextCategories = categories.filter(item => item !== category);
+      const nextLocations = locations.map(location => location.category === category
+        ? { ...location, category: destination }
+        : location);
+      if (!saveConfiguration(nextCategories, nextLocations)) return;
+      categories = nextCategories;
+      locations = nextLocations;
+      refreshCategoryManager(destination);
+      renderSlots();
+    });
+    document.querySelector("#close-category-dialog").addEventListener("click", () => categoryDialog.close());
+    document.querySelector("#placement-mode").addEventListener("click", () => {
+      movingLocationId = null;
+      setPlacementMode(!placementMode);
+    });
+    mapCanvas.addEventListener("click", event => {
+      if (!placementMode || event.target.closest(".plan-slot")) return;
+      const bounds = mapCanvas.getBoundingClientRect();
+      const position = {
+        x: Math.round((event.clientX - bounds.left) * 1152 / bounds.width),
+        y: Math.round((event.clientY - bounds.top) * 768 / bounds.height)
+      };
+
+      if (movingLocationId) {
+        const previousLocations = locations;
+        locations = locations.map(location => location.id === movingLocationId
+          ? { ...location, ...position }
+          : location);
+        if (!saveLocations()) {
+          locations = previousLocations;
+          return;
+        }
+        movingLocationId = null;
+        setPlacementMode(false);
+        renderSlots();
+        return;
+      }
+
+      openLocationDialog({ position });
+    });
+    document.querySelector("#location-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const name = locationNameInput.value.trim();
+      const category = editingLocationId
+        ? locationCategorySelect.value
+        : locationCategoryInput.value.trim();
+      if (!name || !category) return;
+
+      const previousLocations = locations;
+      if (editingLocationId) {
+        locations = locations.map(location => location.id === editingLocationId
+          ? { ...location, name, category, color: colorForCategory(category) }
+          : location);
+      } else {
+        const id = `plass-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        locations = [...locations, {
+          id,
+          name,
+          category,
+          ...pendingPosition,
+          color: colorForCategory(category)
+        }];
+      }
+
+      const nextCategories = categories.includes(category) ? categories : [...categories, category];
+      const saved = nextCategories.length === categories.length
+        ? saveLocations()
+        : saveConfiguration(nextCategories, locations);
+      if (!saved) {
+        locations = previousLocations;
+        return;
+      }
+      categories = nextCategories;
+      renderSlots();
+      locationDialog.close();
+    });
+    document.querySelector("#move-location").addEventListener("click", () => {
+      movingLocationId = editingLocationId;
+      locationDialog.close();
+      setPlacementMode(true);
+      document.querySelector("#placement-hint").textContent = "Klikk på den nye plasseringen på tegningen for å flytte markøren.";
+    });
+    document.querySelector("#delete-location").addEventListener("click", () => {
+      if (editingLocationId) removeLocation(editingLocationId);
+    });
+    document.querySelector("#cancel-location").addEventListener("click", () => locationDialog.close());
+    document.querySelector("#cancel-edit").addEventListener("click", () => dialog.close());
+    document.querySelector("#clear-product").addEventListener("click", () => updateProduct(""));
+    document.querySelector("#edit-form").addEventListener("submit", event => {
+      event.preventDefault();
+      updateProduct(productInput.value);
+    });
+
+    document.querySelector("#copy-previous").addEventListener("click", () => {
+      const currentMonday = fromDateKey(picker.value);
+      const previousMonday = new Date(currentMonday);
+      previousMonday.setDate(previousMonday.getDate() - 7);
+      const previousPlan = localStorage.getItem(weekStorageKey(dateKey(previousMonday)));
+      if (!previousPlan) {
+        window.alert("Det finnes ingen lagret plan for forrige uke å kopiere.");
+        return;
+      }
+      try {
+        currentPlan = parsePlan(previousPlan);
+        renderSlots();
+        savePlan();
+      } catch (error) {
+        console.error("Kunne ikke kopiere planen fra forrige uke.", error);
+        window.alert("Ukeplanen kunne ikke leses, så den ble ikke kopiert.");
+      }
+    });
+
+    picker.value = dateKey(mondayOf(new Date()));
+    renderWeek();
+
+    let pendingInstallPrompt = null;
+    const installButton = document.querySelector("#install-app");
+    window.addEventListener("beforeinstallprompt", event => {
+      event.preventDefault();
+      pendingInstallPrompt = event;
+      installButton.hidden = false;
+    });
+    window.addEventListener("appinstalled", () => {
+      pendingInstallPrompt = null;
+      installButton.hidden = true;
+    });
+    installButton.addEventListener("click", async () => {
+      if (!pendingInstallPrompt) return;
+      await pendingInstallPrompt.prompt();
+      await pendingInstallPrompt.userChoice;
+      pendingInstallPrompt = null;
+      installButton.hidden = true;
+    });
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js").catch(error => {
+        console.error("Kunne ikke aktivere offline-støtte for appen.", error);
+      });
+    }
+  </script>
+</body>
+</html>
