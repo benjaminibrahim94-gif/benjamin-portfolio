@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Bli kjent med uyghurene: historie, språk, mat, musikk, tradisjoner og liv i dag."
+    >
+    <meta name="theme-color" content="#f7f5ef">
+    <title>Uyghur – folk, språk og kultur</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Hopp til innhold</a>
+
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Uyghurene – til toppen">
+        <span class="wordmark-mark" aria-hidden="true">ئۇ</span>
+        <span>Uyghur</span>
+      </a>
+      <nav aria-label="Hovedmeny">
+        <a href="#folk">Folket</a>
+        <a href="#historie">Historie</a>
+        <a href="#sprak">Språk</a>
+        <a href="#mat">Mat</a>
+        <a href="#musikk">Musikk</a>
+        <a href="#tradisjoner">Tradisjoner</a>
+        <a href="#i-dag">I dag</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Folk · språk · kultur</p>
+          <h1 id="hero-title">Hvem er <em>uyghurene?</em></h1>
+          <p class="hero-intro">
+            Uyghurene er et tyrkisktalende folk med en flere tusen år lang
+            historie i Sentral-Asia.
+          </p>
+          <p class="hero-detail">
+            Et levende og mangfoldig samfunn med historiske røtter i oasebyene
+            og landskapene i Sentral-Asia – og med fellesskap over hele verden.
+          </p>
+          <a class="text-link" href="#folk">Bli litt bedre kjent <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-art" role="img" aria-label="Illustrasjon av fjell og ørkenlandskap i Sentral-Asia">
+          <div class="sun"></div>
+          <div class="ridge ridge-back"></div>
+          <div class="ridge ridge-front"></div>
+          <span class="art-caption">Sentral-Asia</span>
+        </div>
+        <span class="hero-index" aria-hidden="true">FOLK · SPRÅK · KULTUR</span>
+      </section>
+
+      <section class="intro section-grid" id="folk" aria-labelledby="folk-title">
+        <p class="section-label">01 — Folket og hjemstedet</p>
+        <div class="section-content">
+          <h2 id="folk-title">Et folk med mange røtter</h2>
+          <p class="lead">
+            Uyghurer (også skrevet uigurer på norsk) er et tyrkisktalende folk.
+            Mange bor i Xinjiang Uyghur autonome region nordvest i Kina, og
+            uyghuriske samfunn finnes også i Sentral-Asia, Tyrkia, Europa og
+            Nord-Amerika.
+          </p>
+          <p>
+            Kashgar, Hotan og Turpan er blant regionens kjente oasebyer. I
+            århundrer har folk, språk og varer møttes her langs handelsrutene
+            gjennom Sentral-Asia. Uyghurisk identitet rommer mange lokale
+            tradisjoner, familiefortellinger og erfaringer – det finnes ikke
+            én enkelt måte å være uyghur på.
+          </p>
+          <p>
+            Dagens uyghuriske kultur har blitt til gjennom en lang historie med
+            forbindelser og endring. Historiske folk og riker i regionen bør
+            ikke uten videre forstås som identiske med dagens folkegruppe.
+          </p>
+        </div>
+      </section>
+
+      <section class="region-section" aria-labelledby="region-title">
+        <div class="region-copy">
+          <p class="section-label">Regionens byer</p>
+          <h2 id="region-title">Utforsk Xinjiang</h2>
+          <p>
+            Velg en by på kartet eller i listen for å lese litt om hva stedet
+            er kjent for. Byene ligger spredt mellom fjellområdene og
+            oasebeltet rundt Taklamakanørkenen.
+          </p>
+          <p class="map-note">
+            Skjematisk kart – plasseringene er omtrentlige, og kartet viser
+            ikke nøyaktige grenser eller målestokk.
+          </p>
+        </div>
+        <div class="city-explorer" id="city-explorer">
+          <div class="city-map-frame">
+            <svg class="region-map interactive-map" viewBox="0 0 860 500" role="group" aria-labelledby="map-title map-desc">
+              <title id="map-title">Interaktivt, skjematisk kart over byer i Xinjiang</title>
+              <desc id="map-desc">
+                Velg en bymarkør for å lese om Kashgar, Yarkand, Hotan, Kucha,
+                Turpan, Urumqi eller Gulja. Kartet er skjematisk.
+              </desc>
+              <defs>
+                <pattern id="map-dots" width="18" height="18" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1" fill="#c8c2af"></circle>
+                </pattern>
+                <linearGradient id="map-background" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#f5f1e7"></stop>
+                  <stop offset="1" stop-color="#e6e8dc"></stop>
+                </linearGradient>
+                <linearGradient id="map-land" x1="0" y1="0" x2="0.8" y2="1">
+                  <stop offset="0" stop-color="#e2dfd0"></stop>
+                  <stop offset="1" stop-color="#cfcdbd"></stop>
+                </linearGradient>
+                <linearGradient id="map-region-fill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ead8b1"></stop>
+                  <stop offset="1" stop-color="#c9ab78"></stop>
+                </linearGradient>
+                <clipPath id="map-region-clip">
+                  <path d="M205 184 L259 151 L337 164 L398 136 L458 155 L514 140 L573 163 L636 177 L676 207 L658 242 L635 260 L626 296 L574 315 L526 300 L468 326 L420 309 L361 322 L319 292 L279 283 L250 254 L225 222 Z"></path>
+                </clipPath>
+              </defs>
+              <rect x="0" y="0" width="860" height="500" rx="18" fill="url(#map-background)"></rect>
+              <rect x="0" y="0" width="860" height="500" rx="18" fill="url(#map-dots)" opacity=".55"></rect>
+              <path class="map-shape" d="M71 103 L198 68 L294 101 L376 74 L461 96 L541 74 L631 110 L718 139 L786 200 L750 253 L769 312 L721 374 L651 408 L565 395 L492 432 L404 405 L327 420 L259 385 L189 377 L133 330 L112 261 L89 203 Z"></path>
+              <path class="map-xinjiang" d="M205 184 L259 151 L337 164 L398 136 L458 155 L514 140 L573 163 L636 177 L676 207 L658 242 L635 260 L626 296 L574 315 L526 300 L468 326 L420 309 L361 322 L319 292 L279 283 L250 254 L225 222 Z"></path>
+              <g class="map-terrain" clip-path="url(#map-region-clip)">
+                <path d="M197 198 C276 177 294 204 367 178 S479 165 534 190 S631 198 692 181"></path>
+                <path d="M210 218 C274 197 312 225 374 202 S484 187 540 210 S627 220 680 202"></path>
+                <path d="M222 242 C287 218 324 247 389 223 S492 209 549 232 S625 242 667 225"></path>
+                <path d="M241 266 C305 243 344 269 406 248 S500 232 559 254 S618 265 650 250"></path>
+                <path d="M271 291 C331 267 365 294 424 271 S509 256 569 278 S608 286 633 274"></path>
+                <path d="M304 313 C356 292 387 313 439 293 S521 278 574 299"></path>
+              </g>
+              <path class="map-route" d="M270 264 C321 251 344 271 388 276 S460 263 515 261 S588 239 641 215"></path>
+              <text class="map-country" x="115" y="151">KASAKHSTAN</text>
+              <text class="map-country" x="152" y="365">KIRGISISTAN</text>
+              <text class="map-country" x="708" y="327">KINA</text>
+              <text class="map-country" x="632" y="129">MONGOLIA</text>
+              <text class="map-region" x="417" y="361">XINJIANG</text>
+              <text class="map-desert" x="428" y="250">Taklamakanørkenen</text>
+
+              <g class="city-marker is-selected" role="button" tabindex="0" aria-pressed="true" aria-label="Kashgar" data-city="kashgar" transform="translate(279 267)">
+                <circle class="city-marker-halo" r="15"></circle><circle class="city-marker-dot" r="6"></circle>
+                <text class="city-marker-label" x="-10" y="27">Kashgar</text>
+              </g>
+              <g class="city-marker" role="button" tabindex="0" aria-pressed="false" aria-label="Yarkand (Shache)" data-city="yarkand" transform="translate(361 287)">
+                <circle class="city-marker-halo" r="15"></circle><circle class="city-marker-dot" r="6"></circle>
+                <text class="city-marker-label" x="-18" y="28">Yarkand</text>
+              </g>
+              <g class="city-marker" role="button" tabindex="0" aria-pressed="false" aria-label="Hotan" data-city="hotan" transform="translate(465 308)">
+                <circle class="city-marker-halo" r="15"></circle><circle class="city-marker-dot" r="6"></circle>
+                <text class="city-marker-label" x="-8" y="28">Hotan</text>
+              </g>
+              <g class="city-marker" role="button" tabindex="0" aria-pressed="false" aria-label="Kucha (Kuqa)" data-city="kucha" transform="translate(457 230)">
+                <circle class="city-marker-halo" r="15"></circle><circle class="city-marker-dot" r="6"></circle>
+                <text class="city-marker-label" x="-13" y="-16">Kucha</text>
+              </g>
+              <g class="city-marker" role="button" tabindex="0" aria-pressed="false" aria-label="Turpan" data-city="turpan" transform="translate(592 215)">
+                <circle class="city-marker-halo" r="15"></circle><circle class="city-marker-dot" r="6"></circle>
+                <text class="city-marker-label" x="-11" y="27">Turpan</text>
+              </g>
+              <g class="city-marker" role="button" tabindex="0" aria-pressed="false" aria-label="Urumqi" data-city="urumqi" transform="translate(563 176)">
+                <circle class="city-marker-halo" r="15"></circle><circle class="city-marker-dot" r="6"></circle>
+                <text class="city-marker-label" x="-26" y="-17">Urumqi</text>
+              </g>
+              <g class="city-marker" role="button" tabindex="0" aria-pressed="false" aria-label="Gulja (Yining)" data-city="gulja" transform="translate(287 192)">
+                <circle class="city-marker-halo" r="15"></circle><circle class="city-marker-dot" r="6"></circle>
+                <text class="city-marker-label" x="-23" y="-17">Gulja</text>
+              </g>
+            </svg>
+            <p class="map-instruction">Velg en markør på kartet for å utforske byen.</p>
+          </div>
+          <div class="city-details" id="city-details" aria-live="polite" aria-atomic="true">
+            <p class="city-detail-kicker">Utvalgt by</p>
+            <h3 id="city-name">Kashgar</h3>
+            <p id="city-description">
+              Historisk oaseby ved vestkanten av Taklamakanørkenen. Kashgars
+              gamleby og basar vitner om byens lange historie som møteplass
+              langs handelsrutene gjennom Sentral-Asia.
+            </p>
+            <p class="city-detail-note" id="city-note">Kjent for: gamlebyen, basaren og historiske handelsforbindelser.</p>
+          </div>
+          <div class="city-picker">
+            <h3>Velg en by</h3>
+            <div class="city-buttons" aria-label="Velg by">
+              <button type="button" class="city-button is-selected" aria-pressed="true" data-city="kashgar">Kashgar</button>
+              <button type="button" class="city-button" aria-pressed="false" data-city="yarkand">Yarkand</button>
+              <button type="button" class="city-button" aria-pressed="false" data-city="hotan">Hotan</button>
+              <button type="button" class="city-button" aria-pressed="false" data-city="kucha">Kucha</button>
+              <button type="button" class="city-button" aria-pressed="false" data-city="turpan">Turpan</button>
+              <button type="button" class="city-button" aria-pressed="false" data-city="urumqi">Urumqi</button>
+              <button type="button" class="city-button" aria-pressed="false" data-city="gulja">Gulja</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="photo-strip" aria-label="Bilder fra regionen og uyghurisk kultur">
+        <figure class="photo-card photo-city">
+          <img
+            src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/East_gate_of_the_Ancient_City_of_Kashi_%2820230923104429%29.jpg/960px-East_gate_of_the_Ancient_City_of_Kashi_%2820230923104429%29.jpg"
+            alt="Østporten til den gamle byen i Kashi (Kashgar)"
+            loading="lazy"
+            width="900"
+            height="600"
+          >
+          <figcaption>
+            Kashgar · Foto: N509FZ ·
+            <a href="https://commons.wikimedia.org/wiki/File:East_gate_of_the_Ancient_City_of_Kashi_(20230923104429).jpg">CC BY-SA 4.0</a>
+          </figcaption>
+        </figure>
+        <figure class="photo-card photo-desert">
+          <img
+            src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Dust_Swirls_in_the_Taklamakan_Desert_%28NESDIS_2013-09-27%29.png/960px-Dust_Swirls_in_the_Taklamakan_Desert_%28NESDIS_2013-09-27%29.png"
+            alt="Satellittbilde av sandvirvler i Taklamakanørkenen"
+            loading="lazy"
+            width="900"
+            height="506"
+          >
+          <figcaption>
+            Taklamakan · Suomi NPP/VIIRS, via
+            <a href="https://commons.wikimedia.org/wiki/File:Dust_Swirls_in_the_Taklamakan_Desert_(NESDIS_2013-09-27).png">Wikimedia Commons</a>
+          </figcaption>
+        </figure>
+        <figure class="photo-card photo-music">
+          <img
+            src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/El_muqam_uyghur_del_Xinjiang.jpg/960px-El_muqam_uyghur_del_Xinjiang.jpg"
+            alt="Uyghurisk muqam framført av sangere og musikere"
+            loading="lazy"
+            width="900"
+            height="604"
+          >
+          <figcaption>
+            Muqam · Foto: Liang Li ·
+            <a href="https://commons.wikimedia.org/wiki/File:El_muqam_uyghur_del_Xinjiang.jpg">CC0</a>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="history" id="historie" aria-labelledby="historie-title">
+        <div class="history-heading">
+          <p class="section-label">02 — Historie</p>
+          <h2 id="historie-title">Tidslinje: riker, ruter og endring</h2>
+          <p>
+            Trykk på et tidspunkt for å lese mer. Historien om dagens
+            uyghuriske identitet er lang og sammensatt, og fortiden kan tolkes
+            på ulike måter.
+          </p>
+        </div>
+        <div class="timeline">
+          <details class="timeline-item">
+            <summary>
+              <span class="timeline-date">744–840</span>
+              <span class="timeline-title">Uyghur-khaganatet</span>
+              <span class="timeline-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="timeline-body">
+              <p>
+                Uyghur-khaganatet var et mektig rike på den mongolske steppen.
+                Etter rikets fall i 840 flyttet grupper sør og vest; i
+                århundrene som fulgte oppsto uyghuriske kongedømmer blant annet
+                rundt Turfan og Gansu. Dette er en viktig del av historien, men
+                ikke en enkel, uavbrutt linje til dagens identitet.
+              </p>
+            </div>
+          </details>
+          <details class="timeline-item">
+            <summary>
+              <span class="timeline-date">Fra 800-tallet</span>
+              <span class="timeline-title">Oasebyer og Silkeveien</span>
+              <span class="timeline-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="timeline-body">
+              <p>
+                Byer og oaser i Tarim-bekkenet knyttet sammen handelsruter
+                gjennom Sentral-Asia. Buddhismen, manikeismen, kristendommen og
+                senere islam satte ulike spor i regionens samfunn og kunst.
+                «Silkeveien» viser til et nettverk av ruter, ikke én enkelt vei.
+              </p>
+            </div>
+          </details>
+          <details class="timeline-item">
+            <summary>
+              <span class="timeline-date">1514–1680-årene</span>
+              <span class="timeline-title">Yarkent-khanatet</span>
+              <span class="timeline-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="timeline-body">
+              <p>
+                Yarkent-khanatet styrte store deler av Tarim-bekkenet fra
+                Yarkand. Dateringen av slutten varierer mellom historiske
+                framstillinger. Perioden viser regionens nære forbindelser til
+                andre sentralasiatiske riker og dynastier.
+              </p>
+            </div>
+          </details>
+          <details class="timeline-item">
+            <summary>
+              <span class="timeline-date">1700-tallet</span>
+              <span class="timeline-title">Qing-dynastiet utvider kontrollen</span>
+              <span class="timeline-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="timeline-body">
+              <p>
+                Qing-dynastiet utvidet kontrollen over regionen på 1700-tallet.
+                Området fikk provinsstatus i 1884 og navnet Xinjiang, ofte
+                oversatt som «ny grense» eller «nytt territorium».
+              </p>
+            </div>
+          </details>
+          <details class="timeline-item">
+            <summary>
+              <span class="timeline-date">1933 og 1944</span>
+              <span class="timeline-title">Kortvarige republikker</span>
+              <span class="timeline-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="timeline-body">
+              <p>
+                Politiske omveltninger førte til at republikker ble proklamert
+                i deler av regionen i 1933 og 1944. De hadde ulike ledere,
+                geografisk utbredelse og historiske forløp, og eksisterte i
+                perioder preget av konflikt og rivaliserende makter.
+              </p>
+            </div>
+          </details>
+          <details class="timeline-item">
+            <summary>
+              <span class="timeline-date">1949–1955</span>
+              <span class="timeline-title">Folkerepublikken Kina og autonom region</span>
+              <span class="timeline-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="timeline-body">
+              <p>
+                Folkerepublikken Kina fikk kontroll over regionen i 1949.
+                Xinjiang Uyghur autonome region ble opprettet i 1955 som en
+                administrativ enhet i Kina.
+              </p>
+            </div>
+          </details>
+          <details class="timeline-item">
+            <summary>
+              <span class="timeline-date">2000-tallet til i dag</span>
+              <span class="timeline-title">Rask endring og internasjonal debatt</span>
+              <span class="timeline-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="timeline-body">
+              <p>
+                Regionen har gjennomgått rask urbanisering og store
+                økonomiske og demografiske endringer. Politikken overfor
+                uyghurere og andre muslimske grupper har samtidig blitt gjenstand
+                for internasjonal granskning. FNs menneskerettighetskontor
+                publiserte i 2022 en vurdering av alvorlige
+                menneskerettighetsbekymringer. Se rapporten for dokumentasjon
+                og forbehold.
+              </p>
+              <a class="text-link" href="https://www.ohchr.org/en/documents/country-reports/ohchr-assessment-human-rights-concerns-xinjiang-uyghur-autonomous-region" target="_blank" rel="noreferrer">
+                Les FNs vurdering <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="culture" id="sprak" aria-labelledby="sprak-title">
+        <div class="culture-heading">
+          <p class="section-label">03 — Identitet og språk</p>
+          <h2 id="sprak-title">Et språk som bærer tilhørighet</h2>
+          <p>
+            Uyghurisk binder sammen hverdagsliv, litteratur, musikk og
+            generasjoner. Språket har flere dialektgrupper og har blitt skrevet
+            med ulike skriftsystemer.
+          </p>
+        </div>
+        <div class="language-panel">
+          <div>
+            <p class="language-kicker">Uyghurisk – arabiskbasert skrift</p>
+            <p class="uyghur-script" lang="ug" dir="rtl">ياخشىمۇسىز</p>
+            <p class="language-pronunciation">Yaxshimusiz · «Hei, hvordan går det?»</p>
+          </div>
+          <div class="language-facts">
+            <p><strong>Språkfamilie</strong><span>Tyrkiske språk</span></p>
+            <p><strong>Skriftsystemer</strong><span>Arabiskbasert skrift er vanlig; latin og kyrillisk er også brukt</span></p>
+            <p><strong>Dialekter</strong><span>Flere regionale talemåter, ofte gruppert som sentrale, sørlige og østlige</span></p>
+          </div>
+        </div>
+        <p class="culture-note">
+          Stavemåter av folkenavnet varierer på norsk og internasjonalt:
+          «uyghur», «uighur» og «uigurer» forekommer.
+        </p>
+      </section>
+
+      <section class="food-section" id="mat" aria-labelledby="mat-title">
+        <div class="culture-heading">
+          <p class="section-label">04 — Mat</p>
+          <h2 id="mat-title">Et kjøkken fullt av smak</h2>
+          <p>
+            Uyghurisk mat har mange lokale varianter og speiler regionens
+            råvarer og lange forbindelser til naboland. Rettene lages forskjellig
+            fra hjem til hjem.
+          </p>
+        </div>
+        <div class="food-gallery">
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Dolan_Uyghur_handmade_noodles_Adelaide.jpg/960px-Dolan_Uyghur_handmade_noodles_Adelaide.jpg"
+                alt="En tallerken uyghurisk lagman med håndtrukne nudler"
+                loading="lazy"
+                width="900"
+                height="675"
+              >
+              <figcaption>Foto: Orderinchaos · <a href="https://commons.wikimedia.org/wiki/File:Dolan_Uyghur_handmade_noodles_Adelaide.jpg">CC BY-SA 4.0</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Lagman</h3>
+              <p>Håndtrukne nudler servert med grønnsaker og ofte kjøtt.</p>
+            </div>
+          </article>
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Farg%27onacha_osh.jpg/960px-Farg%27onacha_osh.jpg"
+                alt="Farg'ona plov, en sentralasiatisk risrett beslektet med polo"
+                loading="lazy"
+                width="900"
+                height="600"
+              >
+              <figcaption>Farg'ona plov · Foto: UzbekistanWikiEditor · <a href="https://commons.wikimedia.org/wiki/File:Farg%27onacha_osh.jpg">CC0</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Polo</h3>
+              <p>Risrett med gulrot og rosiner, ofte med kjøtt; også kjent som pilaf. Bildet viser en beslektet sentralasiatisk plov.</p>
+            </div>
+          </article>
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Uyghur_samsa.jpg/960px-Uyghur_samsa.jpg"
+                alt="Uyghuriske samsa-paier"
+                loading="lazy"
+                width="900"
+                height="675"
+              >
+              <figcaption>Foto: Mizu basyo · <a href="https://commons.wikimedia.org/wiki/File:Uyghur_samsa.jpg">CC BY-SA 3.0</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Samsa</h3>
+              <p>Ovnsbakte butterdeigslignende paier, ofte fylt med kjøtt og løk.</p>
+            </div>
+          </article>
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Uyghur_chon_nan.JPG/960px-Uyghur_chon_nan.JPG"
+                alt="Uyghurisk chon nan, et stort rundt flatbrød"
+                loading="lazy"
+                width="900"
+                height="906"
+              >
+              <figcaption>Uyghurisk chon nan · <a href="https://commons.wikimedia.org/wiki/File:Uyghur_chon_nan.JPG">Wikimedia Commons · offentlig eiendom</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Nan</h3>
+              <p>Rundt, bakt brød som finnes i mange former og varianter.</p>
+            </div>
+          </article>
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Dapanji_urumqi.jpg/960px-Dapanji_urumqi.jpg"
+                alt="Dapanji, krydret kyllinggryte fra Xinjiang"
+                loading="lazy"
+                width="900"
+                height="539"
+              >
+              <figcaption>Dapanji i Urumqi · <a href="https://commons.wikimedia.org/wiki/File:Dapanji_urumqi.jpg">Wikimedia Commons · offentlig eiendom</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Dapanji</h3>
+              <p>En krydret kyllingrett med potet, ofte servert med nudler eller brød.</p>
+            </div>
+          </article>
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Shashlik.jpg/960px-Shashlik.jpg"
+                alt="Grillet shashlik av kjøtt på spyd"
+                loading="lazy"
+                width="900"
+                height="675"
+              >
+              <figcaption>Shashlik · Foto: Igor Savin · <a href="https://commons.wikimedia.org/wiki/File:Shashlik.jpg">Wikimedia Commons · offentlig eiendom</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Kawap</h3>
+              <p>Grillet kjøtt på spyd, krydret på ulike måter. Bildet viser beslektet sentralasiatisk shashlik.</p>
+            </div>
+          </article>
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Manti_%28dumpling%29_In_Istanbul.jpg/960px-Manti_%28dumpling%29_In_Istanbul.jpg"
+                alt="Dampede manti-deigputer servert på tallerken"
+                loading="lazy"
+                width="900"
+                height="1200"
+              >
+              <figcaption>Foto: Archeologo · <a href="https://commons.wikimedia.org/wiki/File:Manti_(dumpling)_In_Istanbul.jpg">CC BY-SA 4.0</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Manti</h3>
+              <p>Dampede deigputer med fyll; oppskrifter og navn varierer i regionen.</p>
+            </div>
+          </article>
+          <article class="food-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Serving_guests_in_Turpan.jpg/960px-Serving_guests_in_Turpan.jpg"
+                alt="Uyghurisk vertskap serverer te, nan og snacks til gjester i Turpan"
+                loading="lazy"
+                width="900"
+                height="675"
+              >
+              <figcaption>Foto: Kubilayaxun · <a href="https://commons.wikimedia.org/wiki/File:Serving_guests_in_Turpan.jpg">CC BY-SA 4.0</a></figcaption>
+            </figure>
+            <div class="food-card-copy">
+              <h3>Te</h3>
+              <p>Te serveres ofte som en del av gjestfrihet og sosialt samvær.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="music-section" id="musikk" aria-labelledby="musikk-title">
+        <div class="music-copy">
+          <p class="section-label">05 — Musikk og dans</p>
+          <h2 id="musikk-title">Rytmer som forteller historier</h2>
+          <p class="lead">
+            Muqam er en rik tradisjon med sang, instrumentalmusikk og dans.
+            Uyghur Muqam fra Xinjiang er innskrevet på UNESCOs liste over
+            immateriell kulturarv.
+          </p>
+          <p>
+            Dutar og rawap er blant instrumentene som forbindes med uyghurisk
+            musikk. Tradisjonell dans, lokale uttrykk og moderne musikk lever
+            side om side – og kunsten forandrer seg med menneskene som lager
+            den.
+          </p>
+          <a class="text-link dark-link" href="https://ich.unesco.org/en/RL/uyghur-muqam-of-xinjiang-00109" target="_blank" rel="noreferrer">
+            Les om Uyghur Muqam hos UNESCO <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <figure class="music-photo">
+          <img
+            src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/El_muqam_uyghur_del_Xinjiang.jpg/960px-El_muqam_uyghur_del_Xinjiang.jpg"
+            alt="Sangere og musikere framfører muqam"
+            loading="lazy"
+            width="900"
+            height="604"
+          >
+          <figcaption>
+            Muqam-forestilling · Foto: Liang Li ·
+            <a href="https://commons.wikimedia.org/wiki/File:El_muqam_uyghur_del_Xinjiang.jpg">CC0</a>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="traditions-section" id="tradisjoner" aria-labelledby="tradisjoner-title">
+        <div class="culture-heading">
+          <p class="section-label">06 — Klær og tradisjoner</p>
+          <h2 id="tradisjoner-title">Uttrykk, feiringer og fellesskap</h2>
+          <p>
+            Klær og skikker varierer mellom steder og familier, og endres over
+            tid. Tradisjon er ikke én fast uniform – det er mange måter å
+            uttrykke tilhørighet på.
+          </p>
+        </div>
+        <div class="tradition-grid">
+          <article class="tradition-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Uyghur_doppa_from_%C3%9Cr%C3%BCmqi.jpg/960px-Uyghur_doppa_from_%C3%9Cr%C3%BCmqi.jpg"
+                alt="Brodert uyghurisk doppa-hodeplagg fra Ürümqi"
+                loading="lazy"
+                width="900"
+                height="735"
+              >
+              <figcaption>Doppa fra Ürümqi · Foto: Jasper Lee · <a href="https://commons.wikimedia.org/wiki/File:Uyghur_doppa_from_%C3%9Cr%C3%BCmqi.jpg">brukt med tillatelse</a></figcaption>
+            </figure>
+            <div class="tradition-card-copy">
+              <span class="tradition-mark" aria-hidden="true">01</span>
+              <h3>Doppa</h3>
+              <p>
+                Broderte hodeplagg med mange mønstre og farger. Utforming og
+                bruk varierer etter anledning og personlig stil.
+              </p>
+            </div>
+          </article>
+          <article class="tradition-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Adras_%28Ikat%29._1990s._Silk%2C_cotton_%283%29.jpg/960px-Adras_%28Ikat%29._1990s._Silk%2C_cotton_%283%29.jpg"
+                alt="Fargerikt håndvevd adras-tekstil i silke og bomull med ikat-mønster"
+                loading="lazy"
+                width="900"
+                height="1320"
+              >
+              <figcaption>Adras-tekstil fra Usbekistan · Foto: Panpanchik · <a href="https://commons.wikimedia.org/wiki/File:Adras_(Ikat)._1990s._Silk,_cotton_(3).jpg">CC BY-SA 4.0</a></figcaption>
+            </figure>
+            <div class="tradition-card-copy">
+              <span class="tradition-mark" aria-hidden="true">02</span>
+              <h3>Atlas-silke</h3>
+              <p>
+                Fargerik ikat-veving med karakteristiske mønstre, særlig knyttet
+                til Hotan og Kashgar. Tekstiler brukes på flere måter i
+                moderne og tradisjonelle antrekk. Bildet viser beslektet adras
+                fra Usbekistan, ikke uyghurisk atlas.
+              </p>
+            </div>
+          </article>
+          <article class="tradition-card">
+            <div class="tradition-image-pair">
+              <figure>
+                <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9d_9VHx7sD5YdLNVDhXw6W_EccRFWCUvgQnTZMb-SMU4Moom5PhqHe-M&amp;s=10"
+                alt="Uyghurisk kvinne i kjole, fra bildekoblingen brukeren sendte"
+                loading="lazy"
+                width="320"
+                height="320"
+              >
+              <figcaption>
+                Bilde fra lenken du sendte · Fotograf og lisens er ikke oppgitt
+              </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Uyghur_women%27s_jewelry_16-19th_centuries.jpg/960px-Uyghur_women%27s_jewelry_16-19th_centuries.jpg"
+                  alt="Historiske uyghuriske kvinners smykker fra 1500- til 1800-tallet"
+                  loading="lazy"
+                  width="900"
+                  height="599"
+                >
+                <figcaption>
+                  Historiske smykker ·
+                  <a href="https://commons.wikimedia.org/wiki/File:Uyghur_women%27s_jewelry_16-19th_centuries.jpg">CC BY-SA 4.0</a>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="tradition-card-copy">
+              <span class="tradition-mark" aria-hidden="true">03</span>
+              <h3>Klær og smykker</h3>
+              <p>
+                Festklær og smykker kan være viktige uttrykk for personlig stil,
+                håndverk og lokal tilhørighet. Utforming og bruk varierer mellom
+                regioner og generasjoner.
+              </p>
+            </div>
+          </article>
+          <article class="tradition-card">
+            <figure>
+              <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Uyghur_Meshrep.jpg/960px-Uyghur_Meshrep.jpg"
+                alt="Lokale uyghuriske musikere opptrer under et Meshrep-arrangement i Yarkand"
+                loading="lazy"
+                width="900"
+                height="600"
+              >
+              <figcaption>Meshrep i Yarkand · Foto: travelingmipo · <a href="https://commons.wikimedia.org/wiki/File:Uyghur_Meshrep.jpg">CC BY-SA 2.0</a></figcaption>
+            </figure>
+            <div class="tradition-card-copy">
+              <span class="tradition-mark" aria-hidden="true">04</span>
+              <h3>Feiringer og gjestfrihet</h3>
+              <p>
+                Familie, mat og gjester står sentralt i mange sammenkomster.
+                Eid-feiringer og bryllup kan romme egne antrekk, musikk og dans,
+                med skikker som varierer mellom lokalsamfunn.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="today" id="i-dag" aria-labelledby="i-dag-title">
+        <div class="today-inner">
+          <p class="section-label">07 — Uyghurene i dag</p>
+          <h2 id="i-dag-title">Et fellesskap på tvers av grenser</h2>
+          <p class="today-copy">
+            Uyghurere bor i Xinjiang og i mange land. Diaspora-samfunn finnes
+            blant annet i Kasakhstan, Kirgisistan, Usbekistan, Tyrkia, Europa,
+            Norge, USA og Canada. Historiene og erfaringene varierer fra person
+            til person og fra land til land.
+          </p>
+          <div class="diaspora-tags" aria-label="Steder med uyghuriske samfunn">
+            <span>Sentral-Asia</span><span>Tyrkia</span><span>Norge</span>
+            <span>Europa</span><span>USA og Canada</span>
+          </div>
+          <p class="today-copy">
+            Xinjiang er også gjenstand for internasjonal debatt om politikk og
+            menneskerettigheter. FNs høykommissær for menneskerettigheter
+            publiserte en vurdering i 2022. Den er en sentral kilde til
+            dokumentasjon, men kan ikke romme alle uyghuriske erfaringer.
+          </p>
+          <a
+            class="source-link"
+            href="https://www.ohchr.org/en/documents/country-reports/ohchr-assessment-human-rights-concerns-xinjiang-uyghur-autonomous-region"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Les FNs vurdering <span aria-hidden="true">↗</span>
+          </a>
+          <p class="closing-line">
+            Å bli kjent med et folk begynner med å lytte til menneskene selv.
+          </p>
+        </div>
+      </section>
+
+      <section class="sources-section" aria-labelledby="sources-title">
+        <p class="section-label">Videre lesning</p>
+        <h2 id="sources-title">Kilder og fordypning</h2>
+        <ul class="sources-list">
+          <li><a href="https://www.britannica.com/topic/Uighur" target="_blank" rel="noreferrer">Encyclopaedia Britannica: Uyghur</a></li>
+          <li><a href="https://ich.unesco.org/en/RL/uyghur-muqam-of-xinjiang-00109" target="_blank" rel="noreferrer">UNESCO: Uyghur Muqam of Xinjiang</a></li>
+          <li><a href="https://www.ohchr.org/en/documents/country-reports/ohchr-assessment-human-rights-concerns-xinjiang-uyghur-autonomous-region" target="_blank" rel="noreferrer">FNs menneskerettighetskontor: vurdering av Xinjiang (2022)</a></li>
+          <li><a href="https://commons.wikimedia.org/" target="_blank" rel="noreferrer">Wikimedia Commons: bilder og lisensinformasjon</a></li>
+        </ul>
+        <p class="source-note">
+          Siden er en introduksjon, ikke en uttømmende historisk framstilling.
+          Mat, språkbruk, musikk og tradisjoner kan variere betydelig mellom
+          mennesker og lokalsamfunn.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark footer-wordmark" href="#top">
+        <span class="wordmark-mark" aria-hidden="true">ئۇ</span>
+        <span>Uyghurene</span>
+      </a>
+      <p>En introduksjon til uyghurisk folk, språk og kultur.</p>
+      <a href="#top">Til toppen ↑</a>
+    </footer>
+    <script src="map.js" defer></script>
+  </body>
+</html>

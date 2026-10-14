@@ -1,0 +1,1525 @@
+:root {
+  color-scheme: light;
+  --ink: #1f302d;
+  --muted: #64716b;
+  --paper: #f7f5ef;
+  --white: #fffefa;
+  --green: #294d42;
+  --green-dark: #1e3a33;
+  --gold: #d6a65f;
+  --line: #deded4;
+  font-family: "DM Sans", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+}
+
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: 1rem;
+  z-index: 5;
+  padding: 0.65rem 1rem;
+  background: var(--white);
+  color: var(--ink);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.site-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 82px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7.2%;
+  border-bottom: 1px solid rgb(31 48 45 / 10%);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.wordmark-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--green);
+  font-family: serif;
+  font-size: 1.05rem;
+}
+
+.site-header nav {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2.7rem);
+}
+
+.site-header nav a,
+.site-footer > a:last-child {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.site-header nav a:hover,
+.site-footer > a:last-child:hover {
+  color: var(--green);
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  min-height: min(690px, calc(100vh - 82px));
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  overflow: hidden;
+  padding: 5rem 7.2% 6rem;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 590px;
+  padding-bottom: 1rem;
+}
+
+.eyebrow,
+.section-label {
+  margin: 0 0 1.4rem;
+  color: var(--green);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+h1 {
+  max-width: 610px;
+  margin-bottom: 1.5rem;
+  font-size: clamp(3.5rem, 7.3vw, 6.6rem);
+  letter-spacing: -0.055em;
+}
+
+h1 em {
+  color: var(--green);
+  font-weight: 500;
+}
+
+.hero-intro {
+  max-width: 430px;
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+}
+
+.text-link,
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--green);
+  font-size: 0.83rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.text-link span,
+.source-link span {
+  transition: transform 160ms ease;
+}
+
+.text-link:hover span,
+.source-link:hover span {
+  transform: translate(3px, -2px);
+}
+
+.hero-art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 51%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 73% 24%, rgb(255 241 205 / 85%) 0 5%, transparent 5.3%),
+    linear-gradient(155deg, #dce5d8 0%, #e8e2cf 61%, #d3c49d 100%);
+}
+
+.sun {
+  position: absolute;
+  top: 18%;
+  right: 23%;
+  width: clamp(110px, 15vw, 210px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #e3b86f;
+  box-shadow: 0 0 0 22px rgb(227 184 111 / 13%), 0 0 0 48px rgb(227 184 111 / 9%);
+}
+
+.ridge {
+  position: absolute;
+  right: -9%;
+  bottom: -2px;
+  left: -7%;
+  height: 52%;
+  clip-path: polygon(0 54%, 11% 35%, 19% 46%, 36% 13%, 49% 48%, 62% 23%, 77% 48%, 88% 34%, 100% 58%, 100% 100%, 0 100%);
+}
+
+.ridge-back {
+  bottom: 13%;
+  background: #9da995;
+  opacity: 0.75;
+  transform: scaleX(1.1);
+}
+
+.ridge-front {
+  height: 39%;
+  background: linear-gradient(165deg, #526d5d, #354e43);
+  clip-path: polygon(0 44%, 15% 62%, 26% 31%, 41% 65%, 59% 18%, 73% 55%, 86% 32%, 100% 57%, 100% 100%, 0 100%);
+}
+
+.art-caption {
+  position: absolute;
+  right: 8%;
+  bottom: 7%;
+  color: rgb(255 254 250 / 84%);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero-index {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 7.2%;
+  color: #93988e;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 0.72fr 2fr;
+  gap: 4rem;
+  padding: 8rem 13%;
+}
+
+.section-content {
+  max-width: 740px;
+}
+
+.section-content h2,
+.culture h2,
+.today h2 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.5rem, 4.1vw, 4rem);
+  letter-spacing: -0.035em;
+}
+
+.lead {
+  color: #354943;
+  font-size: 1.16rem;
+  line-height: 1.8;
+}
+
+.section-content > p:not(.lead) {
+  max-width: 700px;
+  color: var(--muted);
+}
+
+.fact-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 3rem;
+  padding-top: 1.7rem;
+  border-top: 1px solid var(--line);
+}
+
+.fact-row > div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.fact-number {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.17rem;
+}
+
+.fact-caption {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.culture {
+  padding: 7rem 13%;
+  background: #e9e9df;
+}
+
+.culture-heading {
+  max-width: 660px;
+  margin-bottom: 3rem;
+}
+
+.culture-heading > p:last-child {
+  max-width: 510px;
+  color: var(--muted);
+}
+
+.culture-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.culture-card {
+  min-height: 265px;
+  padding: 1.7rem;
+  background: var(--white);
+}
+
+.card-number {
+  color: #a7814e;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.culture-card h3 {
+  margin: 2.5rem 0 0.75rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.42rem;
+  font-weight: 500;
+}
+
+.culture-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.culture-note {
+  margin: 1.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.history {
+  align-items: start;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.history-content .lead {
+  margin-bottom: 1rem;
+}
+
+.history-content > p:not(.lead) {
+  margin-bottom: 1.5rem;
+}
+
+.history-stamp {
+  display: grid;
+  min-height: 180px;
+  align-content: center;
+  justify-items: center;
+  gap: 0.4rem;
+  border: 1px solid #c9c9ba;
+  color: var(--green);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.4rem;
+}
+
+.history-stamp span:last-child {
+  color: var(--muted);
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.69rem;
+}
+
+.stamp-line {
+  width: 35px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.today {
+  padding: 7rem 13%;
+  background: var(--green-dark);
+  color: #f8f6ee;
+}
+
+.today-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.today .section-label {
+  color: #e1bb7f;
+}
+
+.today h2 {
+  max-width: 580px;
+}
+
+.today-copy {
+  max-width: 680px;
+  color: #d2d9d0;
+  font-size: 1rem;
+}
+
+.source-link {
+  margin-top: 0.5rem;
+  color: #f0c987;
+}
+
+.closing-line {
+  margin: 4rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(255 255 255 / 20%);
+  color: #e4e7dc;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+  font-style: italic;
+}
+
+.site-footer {
+  display: flex;
+  min-height: 100px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 7.2%;
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    min-height: 70px;
+    padding: 0 6%;
+  }
+
+  .site-header nav {
+    gap: 0.9rem;
+  }
+
+  .site-header nav a {
+    font-size: 0.72rem;
+  }
+
+  .hero {
+    min-height: 650px;
+    align-items: start;
+    grid-template-columns: 1fr;
+    padding: 5rem 7% 4rem;
+  }
+
+  .hero-copy {
+    padding-top: 1rem;
+  }
+
+  .hero-art {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 48%;
+    opacity: 0.82;
+  }
+
+  .hero-index {
+    bottom: 1.5rem;
+    left: 7%;
+  }
+
+  .section-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 5rem 8%;
+  }
+
+  .section-label {
+    margin-bottom: 0;
+  }
+
+  .culture,
+  .today {
+    padding: 5rem 8%;
+  }
+
+  .culture-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-card {
+    min-height: 0;
+  }
+
+  .culture-card h3 {
+    margin-top: 1.4rem;
+  }
+
+  .history-stamp {
+    min-height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .site-header nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+
+  .site-header nav a {
+    font-size: 0.68rem;
+  }
+
+  .hero {
+    min-height: 620px;
+  }
+
+  .fact-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1.5rem 8%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  background: rgb(247 245 239 / 96%);
+  backdrop-filter: blur(12px);
+}
+
+.site-header nav {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.hero {
+  min-height: min(700px, calc(100vh - 82px));
+}
+
+.hero-detail {
+  max-width: 410px;
+  margin: -0.75rem 0 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.region-section {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.5fr);
+  align-items: center;
+  gap: 4rem;
+  padding: 6rem 13%;
+  background:
+    radial-gradient(ellipse at 92% 10%, rgb(255 254 250 / 75%), transparent 34%),
+    linear-gradient(135deg, #eeeee5, #e3e8df);
+}
+
+.region-copy h2,
+.history-heading h2,
+.sources-section h2 {
+  margin-bottom: 1.25rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.region-copy > p:not(.section-label),
+.history-heading > p:not(.section-label) {
+  color: var(--muted);
+}
+
+.map-note {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+}
+
+.map-card {
+  margin: 0;
+}
+
+.region-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgb(31 48 45 / 8%);
+}
+
+.map-shape {
+  fill: #d8d4c4;
+  stroke: #c3bead;
+  stroke-width: 2;
+}
+
+.map-xinjiang {
+  fill: #c7a878;
+  stroke: #92784f;
+  stroke-width: 2;
+}
+
+.map-route {
+  fill: none;
+  stroke: #9b6249;
+  stroke-dasharray: 5 7;
+  stroke-width: 3;
+}
+
+.map-country,
+.map-region,
+.map-city,
+.map-desert,
+.map-direction {
+  font-family: "DM Sans", sans-serif;
+}
+
+.map-country {
+  fill: #777a70;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.map-region {
+  fill: #3e493e;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.map-city-dot {
+  fill: #294d42;
+  stroke: #fffefa;
+  stroke-width: 3;
+}
+
+.map-city {
+  fill: #263c34;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.map-desert {
+  fill: #795f42;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.map-direction {
+  fill: #64716b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.map-arrow {
+  fill: none;
+  stroke: #64716b;
+  stroke-width: 2;
+}
+
+.map-card figcaption,
+.photo-card figcaption,
+.food-photo figcaption,
+.food-card figcaption,
+.tradition-card figcaption,
+.music-photo figcaption {
+  padding-top: 0.7rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.map-card figcaption {
+  padding-left: 0.2rem;
+}
+
+.photo-strip {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1fr;
+  gap: 1rem;
+  padding: 3rem 7.2%;
+  background: var(--paper);
+}
+
+.photo-card {
+  min-width: 0;
+  margin: 0;
+}
+
+.photo-card img,
+.food-photo img,
+.food-card img,
+.music-photo img {
+  display: block;
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  background: #e9e9df;
+}
+
+.photo-desert img {
+  object-position: center;
+}
+
+.photo-card figcaption a,
+.food-photo figcaption a,
+.food-card figcaption a,
+.tradition-card figcaption a,
+.music-photo figcaption a {
+  color: var(--green);
+}
+
+.history {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr);
+  gap: 3rem 5rem;
+  padding: 7rem 13%;
+}
+
+.history-heading {
+  position: sticky;
+  top: 7rem;
+  align-self: start;
+}
+
+.history-heading .section-label {
+  margin-bottom: 1.4rem;
+}
+
+.history-heading > p:last-child {
+  max-width: 370px;
+}
+
+.timeline {
+  border-top: 1px solid var(--line);
+}
+
+.timeline-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline-item summary {
+  display: grid;
+  min-height: 82px;
+  grid-template-columns: 145px 1fr 30px;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.timeline-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.timeline-item summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 4px;
+}
+
+.timeline-date {
+  color: #8a704e;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.timeline-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.08rem;
+}
+
+.timeline-toggle {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid #c9c9ba;
+  border-radius: 50%;
+  color: var(--green);
+  transition: transform 160ms ease;
+}
+
+.timeline-item[open] .timeline-toggle {
+  transform: rotate(45deg);
+}
+
+.timeline-body {
+  padding: 0 2.8rem 1.4rem 145px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.timeline-body p {
+  margin-bottom: 1rem;
+}
+
+.dark-link {
+  color: var(--green);
+}
+
+.language-panel {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  padding: 2.5rem;
+  background: var(--white);
+}
+
+.language-kicker {
+  margin-bottom: 0.7rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.uyghur-script {
+  margin-bottom: 0.4rem;
+  color: var(--green);
+  font-family: "Noto Naskh Arabic", "Times New Roman", serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.4;
+}
+
+.language-pronunciation {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.language-facts {
+  display: grid;
+  gap: 0;
+}
+
+.language-facts p {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8rem;
+}
+
+.language-facts p:last-child {
+  border-bottom: 0;
+}
+
+.language-facts strong {
+  color: var(--green);
+}
+
+.language-facts span {
+  color: var(--muted);
+}
+
+.food-section,
+.traditions-section,
+.sources-section {
+  padding: 7rem 13%;
+}
+
+.food-section {
+  background: #e9e9df;
+}
+
+.food-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.food-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.food-card figure {
+  margin: 0;
+}
+
+.food-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #d8d4c4;
+}
+
+.food-card figcaption {
+  min-height: 2.8rem;
+  padding: 0.55rem 0.8rem 0;
+  font-size: 0.65rem;
+}
+
+.food-card-copy {
+  padding: 0.8rem 1rem 1.2rem;
+}
+
+.food-card h3,
+.tradition-card h3 {
+  margin-bottom: 0.45rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.18rem;
+  font-weight: 500;
+}
+
+.food-card p,
+.tradition-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.music-section {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  gap: 4rem;
+  padding: 7rem 13%;
+}
+
+.music-copy h2 {
+  margin-bottom: 1.5rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.5rem, 4vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.music-copy > p:not(.section-label) {
+  color: var(--muted);
+}
+
+.music-copy .lead {
+  color: #354943;
+  font-size: 1.05rem;
+}
+
+.music-photo img {
+  height: 420px;
+}
+
+.traditions-section {
+  background: #e9e9df;
+}
+
+.tradition-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 1.2rem;
+}
+
+.tradition-card {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.tradition-card figure {
+  margin: 0;
+}
+
+.tradition-card img {
+  display: block;
+  width: 100%;
+  height: clamp(190px, 24vw, 290px);
+  object-fit: cover;
+  background: #d8d4c4;
+}
+
+.tradition-image-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  padding: 0.55rem 0.55rem 0;
+}
+
+.tradition-image-pair figure {
+  min-width: 0;
+}
+
+.tradition-image-pair img {
+  height: clamp(145px, 18vw, 210px);
+}
+
+.tradition-image-pair figcaption {
+  min-height: 3.2rem;
+  padding: 0.45rem 0.15rem;
+  font-size: 0.62rem;
+}
+
+.tradition-card figcaption {
+  min-height: 2.8rem;
+  padding: 0.55rem 1rem 0;
+  font-size: 0.68rem;
+}
+
+.tradition-card-copy {
+  padding: 0.7rem 1.5rem 1.5rem;
+}
+
+.tradition-mark {
+  color: #a7814e;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.tradition-card h3 {
+  margin-top: 0.55rem;
+}
+
+.diaspora-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1.7rem 0 2.3rem;
+}
+
+.diaspora-tags span {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 999px;
+  color: #f0c987;
+  font-size: 0.72rem;
+}
+
+.today-copy + .source-link {
+  margin-bottom: 0.8rem;
+}
+
+.sources-section {
+  background: var(--white);
+}
+
+.sources-section h2 {
+  margin-bottom: 2rem;
+}
+
+.sources-list {
+  display: grid;
+  max-width: 760px;
+  gap: 0.65rem;
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.sources-list a {
+  color: var(--green);
+  font-size: 0.88rem;
+  text-underline-offset: 3px;
+}
+
+.source-note {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.77rem;
+}
+
+@media (max-width: 900px) {
+  .region-section,
+  .history,
+  .music-section {
+    gap: 2.5rem;
+    padding-right: 8%;
+    padding-left: 8%;
+  }
+
+  .food-section,
+  .traditions-section,
+  .sources-section,
+  .culture {
+    padding-right: 8%;
+    padding-left: 8%;
+  }
+
+  .photo-strip {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  .history {
+    grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.3fr);
+  }
+
+  .timeline-item summary {
+    grid-template-columns: 120px 1fr 30px;
+    gap: 0.7rem;
+  }
+
+  .timeline-body {
+    padding-left: 120px;
+  }
+
+  .food-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header {
+    position: relative;
+    gap: 0.6rem;
+    padding: 0.8rem 6%;
+  }
+
+  .site-header nav {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 1.1rem;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+    scrollbar-width: thin;
+  }
+
+  .site-header nav a {
+    flex: 0 0 auto;
+  }
+
+  .hero {
+    min-height: 670px;
+    padding-right: 7%;
+    padding-left: 7%;
+  }
+
+  .hero-copy {
+    max-width: 520px;
+  }
+
+  .hero-art {
+    width: 100%;
+    height: 48%;
+  }
+
+  .region-section,
+  .history,
+  .music-section,
+  .language-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .food-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .region-section,
+  .history,
+  .music-section,
+  .food-section,
+  .traditions-section,
+  .sources-section,
+  .culture,
+  .today {
+    padding: 4.5rem 7%;
+  }
+
+  .region-section {
+    gap: 1.6rem;
+  }
+
+  .photo-strip {
+    grid-template-columns: 1fr 1fr;
+    padding: 1.5rem 7%;
+  }
+
+  .photo-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .photo-card img {
+    height: 220px;
+  }
+
+  .history {
+    gap: 1.8rem;
+  }
+
+  .history-heading {
+    position: static;
+  }
+
+  .timeline-item summary {
+    grid-template-columns: 115px 1fr 28px;
+    min-height: 75px;
+  }
+
+  .timeline-body {
+    padding: 0 1rem 1.3rem 0;
+  }
+
+  .language-panel {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .music-photo img {
+    height: 320px;
+  }
+
+  .music-section {
+    gap: 2rem;
+  }
+
+  .tradition-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tradition-card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero {
+    min-height: 700px;
+  }
+
+  .photo-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-card:first-child {
+    grid-column: auto;
+  }
+
+  .photo-card img {
+    height: 240px;
+  }
+
+  .timeline-item summary {
+    grid-template-columns: 1fr 28px;
+    gap: 0.2rem 0.5rem;
+    padding: 0.8rem 0;
+  }
+
+  .timeline-date {
+    grid-column: 1;
+  }
+
+  .timeline-title {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .timeline-toggle {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+
+  .food-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .language-facts p {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
+.city-explorer {
+  min-width: 0;
+}
+
+.city-map-frame {
+  overflow: hidden;
+  border: 1px solid rgb(255 254 250 / 85%);
+  border-radius: 22px;
+  background: #f1eee4;
+  box-shadow: 0 24px 60px rgb(31 48 45 / 13%), 0 3px 10px rgb(31 48 45 / 5%);
+}
+
+.interactive-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 21px 21px 0 0;
+}
+
+.interactive-map .map-shape {
+  fill: url(#map-land);
+  stroke: #c2c2b4;
+  stroke-width: 2.5;
+}
+
+.interactive-map .map-xinjiang {
+  fill: url(#map-region-fill);
+  stroke: #9a7950;
+  stroke-width: 2.5;
+}
+
+.map-terrain path {
+  fill: none;
+  stroke: #fffaf0;
+  stroke-linecap: round;
+  stroke-width: 2;
+  opacity: 0.48;
+}
+
+.interactive-map .map-route {
+  fill: none;
+  stroke: #c7aa7e;
+  stroke-dasharray: 1 13;
+  stroke-linecap: round;
+  stroke-width: 2;
+  opacity: 0.5;
+}
+
+.city-marker {
+  cursor: pointer;
+  outline: none;
+}
+
+.city-marker-halo {
+  fill: rgb(255 254 250 / 88%);
+  stroke: rgb(41 77 66 / 24%);
+  stroke-width: 1.5;
+  transition: fill 180ms ease, stroke 180ms ease, r 180ms ease;
+}
+
+.city-marker-dot {
+  fill: #829485;
+  stroke: var(--white);
+  stroke-width: 2.5;
+  transition: r 180ms ease, fill 180ms ease;
+}
+
+.city-marker-label {
+  fill: #243b34;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: #fffdf7;
+  stroke-linejoin: round;
+  stroke-width: 5px;
+  pointer-events: none;
+}
+
+.city-marker:hover .city-marker-halo,
+.city-marker:focus-visible .city-marker-halo,
+.city-marker.is-selected .city-marker-halo {
+  fill: #fffefa;
+  stroke: #294d42;
+  r: 17px;
+}
+
+.city-marker.is-selected .city-marker-dot {
+  fill: #bb7853;
+  r: 8.5px;
+}
+
+.city-marker:focus-visible .city-marker-halo {
+  stroke-width: 3;
+}
+
+.map-instruction {
+  margin: 0;
+  padding: 0.85rem 1.25rem 1rem;
+  border-top: 1px solid rgb(31 48 45 / 7%);
+  background: rgb(255 254 250 / 76%);
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.city-details {
+  margin-top: 1.1rem;
+  padding: 1.5rem 1.7rem;
+  border: 1px solid rgb(41 77 66 / 8%);
+  border-left: 4px solid var(--gold);
+  border-radius: 4px 18px 18px 4px;
+  background: linear-gradient(115deg, #fffefa, #f8f7f0);
+  box-shadow: 0 12px 30px rgb(31 48 45 / 6%);
+}
+
+.city-detail-kicker {
+  margin-bottom: 0.35rem;
+  color: #8a704e;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.city-details h3,
+.city-picker h3 {
+  margin-bottom: 0.55rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 500;
+}
+
+.city-details h3 {
+  margin-bottom: 0.65rem;
+  color: var(--green-dark);
+  font-size: 1.8rem;
+}
+
+.city-details > p:not(.city-detail-kicker) {
+  margin-bottom: 0.8rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.city-details .city-detail-note {
+  margin-bottom: 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+  color: var(--green);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.city-picker {
+  margin-top: 1.35rem;
+}
+
+.city-picker h3 {
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.city-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.city-button {
+  padding: 0.52rem 0.9rem;
+  border: 1px solid #c5cbbf;
+  border-radius: 999px;
+  background: rgb(255 254 250 / 55%);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.74rem;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.city-button:hover,
+.city-button:focus-visible {
+  border-color: var(--green);
+  outline: 3px solid rgb(41 77 66 / 14%);
+  outline-offset: 2px;
+  transform: translateY(-1px);
+}
+
+.city-button.is-selected {
+  border-color: var(--green);
+  background: linear-gradient(135deg, #315b4d, #203f36);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgb(31 58 51 / 18%);
+}
+
+@media (max-width: 680px) {
+  .city-details {
+    padding: 1.2rem 1.25rem;
+  }
+
+  .city-marker-label {
+    font-size: 17px;
+    stroke-width: 6px;
+  }
+
+  .map-instruction {
+    padding-right: 0.9rem;
+    padding-left: 0.9rem;
+  }
+
+  .city-buttons {
+    gap: 0.5rem;
+  }
+
+  .city-button {
+    padding: 0.5rem 0.78rem;
+  }
+}
